@@ -39,11 +39,11 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Optimize CI/CD build script grouping.")
 
-    parser.add_argument('--num_build_scripts', type=int, default=10, help="Number of build scripts to generate.")
+    parser.add_argument('--num_build_scripts', type=int, default=100, help="Number of build scripts to generate.")
     parser.add_argument('--num_unique_paths', type=int, default=30, help="Number of unique paths.")
     parser.add_argument('--max_paths_per_script', type=int, default=20, help="Maximum number of paths per build script.")
     parser.add_argument('--min_paths_per_script', type=int, default=5, help="Maximum number of paths per build script.")
-    parser.add_argument('--seed', type=int, default=None, help="Random seed for reproducibility.")
+    parser.add_argument('--seed', type=int, default=0, help="Random seed for reproducibility.")
     parser.add_argument('--threshold', type=float, default=2.0, help="Threshold for merging build script groups.")
     parser.add_argument('--algorithm', type=str, choices=['greedy', 'hierarchical'], default='greedy', help="Algorithm to use for merging.")
 

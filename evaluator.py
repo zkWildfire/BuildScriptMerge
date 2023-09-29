@@ -1,14 +1,18 @@
 from build_script_group import BuildScriptGroup
-from typing import List
+from typing import List, Tuple
 
 class Evaluator:
     @staticmethod
-    def evaluate(groups: List[BuildScriptGroup]):
+    def evaluate(groups: List[BuildScriptGroup]) -> Tuple[float, float, float]:
         """
-        Evaluate and print statistics about a collection of BuildScriptGroup objects.
+        Evaluate and print statistics about a collection of BuildScriptGroup
+          objects.
         @param groups List of BuildScriptGroup objects to evaluate.
+        @returns The average build scripts per group, average unique paths per
+          group, and average similarity within groups.
         """
         num_groups = len(groups)
+        assert num_groups > 0
         total_build_scripts = 0
         total_unique_paths_per_group = 0
         average_similarity = 0
@@ -31,9 +35,13 @@ class Evaluator:
             print(f"    Number of Build Scripts: {num_build_scripts}")
             print(f"    Number of Unique Paths: {unique_paths_in_group}")
 
-        if num_groups > 0:
-            print("\nGlobal Statistics:")
-            print(f"  Average Build Scripts per Group: {total_build_scripts / num_groups}")
-            print(f"  Average Unique Paths per Group: {total_unique_paths_per_group / num_groups}")
-            print(f"  Average Similarity Within Groups: {average_similarity / num_groups}")
+        print("\nGlobal Statistics:")
+        print(f"  Average Build Scripts per Group: {total_build_scripts / num_groups}")
+        print(f"  Average Unique Paths per Group: {total_unique_paths_per_group / num_groups}")
+        print(f"  Average Similarity Within Groups: {average_similarity / num_groups}")
 
+        return (
+            total_build_scripts / num_groups,
+            total_unique_paths_per_group / num_groups,
+            average_similarity / num_groups
+        )
