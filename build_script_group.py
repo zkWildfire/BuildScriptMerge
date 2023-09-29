@@ -1,3 +1,4 @@
+from __future__ import annotations
 from build_script import BuildScript
 import numpy as np
 from typing import List
@@ -35,6 +36,15 @@ class BuildScriptGroup:
         self._group_bit_string &= build_script.to_bit_string(self._unique_paths)
 
 
+    def calculate_dissimilarity(self, other_group: BuildScriptGroup) -> float:
+        """
+        Calculate dissimilarity with another BuildScriptGroup.
+        Dissimilarity is defined as 1 - dot_product.
+        """
+        dot_product = np.dot(self.group_bit_string, other_group.group_bit_string)
+        return 1.0 - (dot_product / len(self._unique_paths))
+
+
     @property
     def group_bit_string(self) -> np.ndarray:
         """
@@ -43,3 +53,10 @@ class BuildScriptGroup:
         """
         return self._group_bit_string
 
+
+    @property
+    def unique_paths(self) -> List[str]:
+        """
+        Gets the sorted list of unique paths to map against.
+        """
+        return self._unique_paths
